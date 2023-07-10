@@ -21,28 +21,6 @@ class Item(BaseModel):    # serializer
 
 db = SessionLocal()
 
-# @app.get('/')
-# def index():
-#     return {"message":"Hello world"}
-
-# @app.get('/greet/{name}')
-# def greet_name(name: str):
-#     return {"greeting": f"Hello {name}"}
-
-
-# @app.get('/greet')
-# def greet_optional_name(name: Optional[str]='user'):
-#     return {"message" : f"Hello {name}"}
-
-# @app.put('/item/{item_id}')
-# def update_item(item_id: int, item: Item):
-#     return {
-#         'name' : item.name + " confirmed",
-#         'description' : item.description,
-#         'price' : item.price,
-#         'on_offer' : item.on_offer
-#     }
-
 @app.get('/items', response_model=List[Item], status_code=200)
 def get_all_items():
     items = db.query(models.Item).all()
@@ -95,5 +73,5 @@ def delete_item(item_id: int):
 
     db.delete(item_to_delete)
     db.commit()
-    
+
     return item_to_delete
